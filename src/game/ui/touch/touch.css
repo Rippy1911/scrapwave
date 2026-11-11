@@ -1,0 +1,105 @@
+/* Touch controls and the small-screen HUD layout. Everything is scoped to html.sw-touch (set by
+   touch/controller.js while touch controls are on), so desktop without ?touch=1 is untouched.
+   Scaled HUD panels use `zoom` (their slide/pop animations own `transform`); offsets are divided by --z so the
+   zoom does not shrink them. */
+html.sw-touch {
+  --sl: env(safe-area-inset-left, 0px); --sr: env(safe-area-inset-right, 0px);
+  --st: env(safe-area-inset-top, 0px); --sb: env(safe-area-inset-bottom, 0px);
+  overscroll-behavior: none;
+}
+html.sw-touch body {
+  position: fixed; inset: 0; overflow: hidden; touch-action: manipulation;
+  -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; -webkit-tap-highlight-color: transparent;
+}
+html.sw-touch input, html.sw-touch textarea { -webkit-user-select: text; user-select: text; }
+html.sw-touch canvas { touch-action: none; }
+
+/* ---- controls layer ---- */
+.sw-tc { position: fixed; inset: 0; z-index: 15; pointer-events: none; touch-action: none; -webkit-user-select: none; user-select: none; }
+.sw-tc-look { position: absolute; top: 0; bottom: 0; right: 0; width: 58%; pointer-events: auto; touch-action: none; }
+.sw-tc-stickzone { position: absolute; left: var(--sl); bottom: var(--sb); width: 42%; height: 72%; pointer-events: auto; touch-action: none; }
+.sw-tc.is-left .sw-tc-look { right: auto; left: 0; }
+.sw-tc.is-left .sw-tc-stickzone { left: auto; right: var(--sr); }
+
+.sw-tc-base {
+  position: absolute; width: calc(var(--ss, 1) * 128px); height: calc(var(--ss, 1) * 128px); border-radius: 50%;
+  transform: translate(-50%, -50%); background: rgba(20, 18, 15, 0.32); border: 2px solid rgba(242, 194, 48, 0.4);
+  box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.45); pointer-events: none; transition: opacity 0.15s;
+}
+.sw-tc-base.is-idle { opacity: 0.55; }
+.sw-tc-knob {
+  position: absolute; left: 50%; top: 50%; width: calc(var(--ss, 1) * 56px); height: calc(var(--ss, 1) * 56px);
+  margin: calc(var(--ss, 1) * -28px) 0 0 calc(var(--ss, 1) * -28px); border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, rgba(255, 213, 74, 0.75), rgba(200, 144, 26, 0.6));
+  border: 2px solid rgba(27, 20, 11, 0.6);
+}
+
+.sw-tc-pad {
+  position: absolute; right: calc(var(--sr) + 12px); bottom: calc(var(--sb) + 10px);
+  display: flex; flex-direction: column; align-items: flex-end; gap: 8px; pointer-events: none;
+}
+.sw-tc-row { display: flex; align-items: flex-end; gap: 8px; }
+.sw-tc.is-left .sw-tc-pad { right: auto; left: calc(var(--sl) + 12px); align-items: flex-start; }
+.sw-tc.is-left .sw-tc-row { flex-direction: row-reverse; }
+
+.sw-tc-btn {
+  --w: 64px;
+  pointer-events: auto; touch-action: none; -webkit-user-select: none; user-select: none;
+  width: max(64px, calc(var(--bs, 1) * var(--w))); height: max(64px, calc(var(--bs, 1) * var(--w)));
+  border-radius: 50%; display: flex; align-items: center; justify-content: center; text-align: center;
+  background: rgba(24, 21, 17, 0.42); border: 2px solid rgba(242, 194, 48, 0.5); color: #f2e6c8;
+  font-family: "Black Ops One", Impact, system-ui, sans-serif; font-size: 11px; letter-spacing: 0.06em; line-height: 1.05;
+  text-transform: uppercase; text-shadow: 0 1px 0 #000; transition: background 0.08s, transform 0.08s;
+}
+.sw-tc-btn.is-big { --w: 80px; font-size: 13px; }
+.sw-tc-btn.is-red { border-color: rgba(255, 90, 58, 0.65); }
+.sw-tc-btn.is-blue { border-color: rgba(120, 170, 240, 0.65); }
+.sw-tc-btn.is-dim { opacity: 0.45; }
+.sw-tc-btn.is-down { background: rgba(242, 194, 48, 0.55); color: #1b140b; text-shadow: none; transform: scale(0.94); }
+.sw-tc-pause {
+  position: absolute; top: calc(var(--st) + 8px); right: calc(var(--sr) + 114px); border-radius: 14px;
+}
+
+/* ---- portrait card ---- */
+.sw-rotate { display: none; }
+@media (orientation: portrait) {
+  html.sw-touch .sw-rotate {
+    display: flex; position: fixed; inset: 0; z-index: 80; align-items: center; justify-content: center;
+    flex-direction: column; gap: 14px; padding: 24px; text-align: center; background: rgba(10, 8, 6, 0.94); color: #efe3cb;
+  }
+}
+
+/* ---- HUD on small touch screens: everything at the top or bottom-centre, clear of both thumbs ---- */
+.sw-touch .sw-hud-loc { left: calc(var(--sl) + 10px); top: calc(var(--st) + 6px); }
+.sw-touch .sw-hud-loc > div:first-child { font-size: 14px; }
+.sw-touch .sw-hud-map { right: calc(var(--sr) + 8px); top: calc(var(--st) + 8px); }
+.sw-touch .sw-hud-map canvas { width: 96px; height: 96px; }
+.sw-touch .sw-hud-left {
+  --z: 0.66; zoom: var(--z); bottom: auto;
+  left: calc((var(--sl) + 10px) / var(--z)); top: calc((var(--st) + 34px) / var(--z));
+}
+.sw-touch .sw-hud-right { display: contents; }
+.sw-touch .sw-hud-carried {
+  --z: 0.55; zoom: var(--z); position: absolute;
+  right: calc((var(--sr) + 8px) / var(--z)); top: calc((var(--st) + 112px) / var(--z));
+}
+.sw-touch .sw-hud-speedo {
+  --z: 0.6; zoom: var(--z); position: absolute; min-width: 120px;
+  left: 0; right: 0; margin: 0 auto; width: fit-content; bottom: calc((var(--sb) + 6px) / var(--z));
+}
+.sw-touch .sw-hud-job { --z: 0.6; zoom: var(--z); right: auto; left: calc((var(--sl) + 10px) / var(--z)); top: calc((var(--st) + 128px) / var(--z)); }
+.sw-touch .sw-hud-feed { --z: 0.85; zoom: var(--z); left: calc((var(--sl) + 186px) / var(--z)); top: calc((var(--st) + 40px) / var(--z)); }
+.sw-touch .sw-hud-hint { --z: 0.65; zoom: var(--z); left: 0; right: 0; margin: 0 auto; top: 34%; }
+.sw-touch .sw-hud-radio { --z: 0.7; zoom: var(--z); bottom: auto; left: 0; right: 0; margin: 0 auto; top: calc((var(--st) + 64px) / var(--z)); }
+.sw-touch .sw-hud-trapshop { --z: 0.7; zoom: var(--z); top: auto; left: 0; right: 0; margin: 0 auto; bottom: calc((var(--sb) + 72px) / var(--z)); }
+.sw-touch .sw-hud-flight { --z: 0.65; zoom: var(--z); left: calc((var(--sl) + 10px) / var(--z)); top: calc((var(--st) + 128px) / var(--z)); }
+.sw-touch .sw-hud-clock { top: calc(var(--st) + 4px); }
+.sw-touch .sw-hud-loc { flex-direction: row; align-items: center; gap: 8px; max-width: 34vw; }
+
+/* ---- menus: finger-sized, scroll when long ---- */
+.sw-touch .fixed.inset-0.flex.items-center { overflow-y: auto; align-items: flex-start; touch-action: pan-y; -webkit-overflow-scrolling: touch; }
+.sw-touch .fixed.inset-0.flex.items-center > * { margin-top: auto; margin-bottom: auto; }
+.sw-touch .overflow-y-auto { touch-action: pan-y; -webkit-overflow-scrolling: touch; }
+.sw-touch .sw-btn { min-height: 44px; min-width: 44px; }
+.sw-touch input[type="range"] { height: 32px; min-width: 120px; }
+.sw-touch select { min-height: 40px; }

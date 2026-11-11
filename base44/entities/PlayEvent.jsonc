@@ -1,0 +1,117 @@
+{
+  "name": "PlayEvent",
+  "type": "object",
+  "properties": {
+    "kind": {
+      "type": "string",
+      "enum": [
+        "session_start",
+        "mode_pick",
+        "match_end",
+        "first_drive",
+        "session_end"
+      ],
+      "enumColors": [
+        "green",
+        "blue",
+        "purple",
+        "yellow",
+        "gray"
+      ],
+      "description": "What happened: the game opened, a mode was picked, a match or cycle ended, the first drive, the page closed"
+    },
+    "version": {
+      "type": "string",
+      "maxLength": 16,
+      "description": "Game version"
+    },
+    "device": {
+      "type": "string",
+      "enum": [
+        "desktop",
+        "touch"
+      ],
+      "enumColors": [
+        "blue",
+        "purple"
+      ]
+    },
+    "quality": {
+      "type": "string",
+      "maxLength": 16,
+      "description": "Graphics quality preset"
+    },
+    "mode": {
+      "type": "string",
+      "maxLength": 40,
+      "description": "Name of the rules being played"
+    },
+    "map": {
+      "type": "string",
+      "maxLength": 40,
+      "description": "Arena map name, or open_world"
+    },
+    "result": {
+      "type": "string",
+      "enum": [
+        "won",
+        "lost",
+        "cycle_end"
+      ],
+      "enumColors": [
+        "green",
+        "red",
+        "gray"
+      ],
+      "description": "match_end only: how the arena match ended, or the end of an open-world cycle"
+    },
+    "match_seconds": {
+      "type": "number",
+      "minimum": 0,
+      "description": "match_end only: length of the match or cycle"
+    },
+    "first_drive_ms": {
+      "type": "number",
+      "minimum": 0,
+      "description": "first_drive only: milliseconds from page load to the first throttle input"
+    },
+    "session_seconds": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Seconds since the page loaded"
+    },
+    "time": {
+      "type": "string",
+      "maxLength": 32,
+      "description": "When it happened in the player's browser (ISO 8601)"
+    }
+  },
+  "required": [
+    "kind"
+  ],
+  "rls": {
+    "create": {},
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

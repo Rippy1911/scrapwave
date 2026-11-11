@@ -1,0 +1,74 @@
+{
+  "name": "ClientError",
+  "type": "object",
+  "properties": {
+    "message": {
+      "type": "string",
+      "maxLength": 300,
+      "description": "The error message, as the browser reported it"
+    },
+    "stack": {
+      "type": "string",
+      "maxLength": 1200,
+      "description": "The first 5 lines of the stack trace"
+    },
+    "count": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Times the same error repeated before it was sent"
+    },
+    "version": {
+      "type": "string",
+      "maxLength": 16,
+      "description": "Game version"
+    },
+    "browser": {
+      "type": "string",
+      "maxLength": 40,
+      "description": "Browser name and major version, for example Chrome 142"
+    },
+    "quality": {
+      "type": "string",
+      "maxLength": 16,
+      "description": "Graphics quality preset"
+    },
+    "mode": {
+      "type": "string",
+      "maxLength": 40,
+      "description": "Name of the rules being played"
+    },
+    "time": {
+      "type": "string",
+      "maxLength": 32,
+      "description": "When the error happened in the player's browser (ISO 8601)"
+    }
+  },
+  "required": [
+    "message"
+  ],
+  "rls": {
+    "create": {},
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

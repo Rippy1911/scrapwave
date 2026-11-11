@@ -1,0 +1,52 @@
+{
+  "name": "PlayerProfile",
+  "type": "object",
+  "properties": {
+    "fame": {
+      "type": "object",
+      "description": "Fame points per track (carnage, speed, stunts, survival, salvage, sky)"
+    },
+    "equipped_title": {
+      "type": "string",
+      "maxLength": 32,
+      "description": "Equipped title id, e.g. overall:3 or carnage:5"
+    },
+    "tag": {
+      "type": "string",
+      "maxLength": 14,
+      "description": "Optional short driver tag"
+    },
+    "avatar": {
+      "type": "object",
+      "description": "Emblem editor payload (shape, icon, colours, border, walker slot)"
+    },
+    "fame_hour": {
+      "type": "object",
+      "description": "Hourly gain bucket for anti-cheat ({ t, gained })"
+    }
+  },
+  "required": [
+    "fame"
+  ],
+  "rls": {
+    "create": {},
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "created_by_id": "{{user.id}}"
+    },
+    "delete": {
+      "created_by_id": "{{user.id}}"
+    }
+  }
+}

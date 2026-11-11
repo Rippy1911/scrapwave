@@ -1,0 +1,248 @@
+{
+  "version": 2,
+  "units": "metres, seconds, y up; map centred on the origin; north is -z",
+  "map": {
+    "size": 1200,
+    "half": 600
+  },
+  "wellTown": {
+    "x": 300,
+    "z": -40,
+    "radius": 72,
+    "bankRadius": 80
+  },
+  "plot": {
+    "size": 60,
+    "rigRadius": 15,
+    "siphonSecs": 8,
+    "siphonShare": 0.25,
+    "rigSpillShare": 0.4,
+    "bankRadius": 20,
+    "maxModules": 40,
+    "note": "build x/z are plot-local metres in [-size/2, size/2]; the rig sits at rigX/rigZ (world)"
+  },
+  "plots": [
+    {
+      "id": "p1",
+      "name": "Bridge East",
+      "x": -30,
+      "z": -100,
+      "rigX": -30,
+      "rigZ": -100
+    },
+    {
+      "id": "p2",
+      "name": "Bridge West",
+      "x": -260,
+      "z": -40,
+      "rigX": -260,
+      "rigZ": -40
+    },
+    {
+      "id": "p3",
+      "name": "Dam Crest",
+      "x": -235,
+      "z": -335,
+      "rigX": -235,
+      "rigZ": -335
+    },
+    {
+      "id": "p4",
+      "name": "Refinery Edge",
+      "x": -400,
+      "z": -70,
+      "rigX": -400,
+      "rigZ": -70
+    },
+    {
+      "id": "p5",
+      "name": "Canyon Mouth",
+      "x": 520,
+      "z": 470,
+      "rigX": 520,
+      "rigZ": 470
+    },
+    {
+      "id": "p6",
+      "name": "North Yard",
+      "x": 165,
+      "z": -500,
+      "rigX": 165,
+      "rigZ": -500
+    },
+    {
+      "id": "p7",
+      "name": "Rattler Flats",
+      "x": -470,
+      "z": 440,
+      "rigX": -470,
+      "rigZ": 440
+    },
+    {
+      "id": "p8",
+      "name": "Tanker Flats",
+      "x": 300,
+      "z": 300,
+      "rigX": 300,
+      "rigZ": 300
+    },
+    {
+      "id": "p9",
+      "name": "Salt Pan",
+      "x": 130,
+      "z": 110,
+      "rigX": 130,
+      "rigZ": 110
+    },
+    {
+      "id": "p10",
+      "name": "East Ridge",
+      "x": 440,
+      "z": -260,
+      "rigX": 440,
+      "rigZ": -260
+    },
+    {
+      "id": "p11",
+      "name": "North Pan",
+      "x": -60,
+      "z": -300,
+      "rigX": -60,
+      "rigZ": -300
+    },
+    {
+      "id": "p12",
+      "name": "West Mesa Gap",
+      "x": -230,
+      "z": 260,
+      "rigX": -230,
+      "rigZ": 260
+    }
+  ],
+  "modules": {
+    "rig": {
+      "hp": 3000,
+      "cost": 0
+    },
+    "scrapwall": {
+      "hp": 500,
+      "cost": 40
+    },
+    "platewall": {
+      "hp": 1100,
+      "cost": 120
+    },
+    "spikewall": {
+      "hp": 900,
+      "cost": 100
+    },
+    "gate": {
+      "hp": 1200,
+      "cost": 150
+    },
+    "mgturret": {
+      "hp": 800,
+      "cost": 250
+    },
+    "rocketturret": {
+      "hp": 800,
+      "cost": 450
+    },
+    "flametrap": {
+      "hp": 600,
+      "cost": 200
+    },
+    "garagepad": {
+      "hp": 1000,
+      "cost": 300
+    },
+    "refinery": {
+      "hp": 1000,
+      "cost": 350,
+      "incomePerSec": 4
+    },
+    "radar": {
+      "hp": 500,
+      "cost": 150
+    }
+  },
+  "weapons": {
+    "mg": {
+      "maxHit": 25
+    },
+    "scattergun": {
+      "maxHit": 180
+    },
+    "harpoon": {
+      "maxHit": 60
+    },
+    "rocket": {
+      "maxHit": 120
+    },
+    "flamer": {
+      "maxHit": 40
+    },
+    "burn": {
+      "maxHit": 20
+    },
+    "autocannon": {
+      "maxHit": 60
+    },
+    "cannon": {
+      "maxHit": 120
+    },
+    "ram": {
+      "maxHit": 400
+    },
+    "mine": {
+      "maxHit": 300
+    },
+    "collision": {
+      "maxHit": 300
+    },
+    "explosion": {
+      "maxHit": 250
+    },
+    "spikeWall": {
+      "maxHit": 80
+    },
+    "turretMg": {
+      "maxHit": 25,
+      "hostOnly": true
+    },
+    "turretRocket": {
+      "maxHit": 100,
+      "hostOnly": true
+    },
+    "flameTrap": {
+      "maxHit": 40,
+      "hostOnly": true
+    },
+    "scatter": {
+      "maxHit": 180
+    },
+    "rockets": {
+      "maxHit": 120
+    }
+  },
+  "vehicles": [
+    "jackal",
+    "brawler",
+    "mammoth"
+  ],
+  "limits": {
+    "dpsBudget": 600,
+    "modHitMax": 400,
+    "lootRadius": 25,
+    "cargoMax": 5000,
+    "chatMax": 120,
+    "nameMax": 20,
+    "explodeMaxR": 30,
+    "maxCrates": 300,
+    "maxJobs": 8,
+    "maxAirSecs": 15,
+    "maxAiPerMsg": 64,
+    "aiExpireMs": 2000
+  },
+  "note": "v2 (9 Nov): plots, Well-town and module ids follow the game's src/game/data/places.js and tuning.js; weapon ids scatter and rockets added as the game names them."
+}

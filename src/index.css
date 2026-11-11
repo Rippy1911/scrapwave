@@ -1,0 +1,137 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 0% 3.9%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+    --font-heading: ui-sans-serif, system-ui, sans-serif;
+    --font-body: ui-sans-serif, system-ui, sans-serif;
+    --font-display: ui-sans-serif, system-ui, sans-serif;
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body;
+  }
+}
+
+/* Scrapwake UI */
+html, body { overscroll-behavior: none; }
+/* Component classes sit in the components layer, so Tailwind utilities on the same element (absolute, fixed,
+   left-1/2, ...) always win whatever order the CSS is bundled in. Unlayered, .sw-panel {position: relative} beat
+   .absolute after the graphics merge and the HUD panels fell into full-width bands. */
+@layer components {
+  .sw-display { font-family: "Black Ops One", "Impact", system-ui, sans-serif; }
+  .sw-body { font-family: "Rajdhani", "Barlow", system-ui, sans-serif; }
+  .sw-panel {
+    background: linear-gradient(180deg, #2b2a28 0%, #1c1b1a 100%);
+    border: 2px solid #46413a;
+    box-shadow: inset 0 1px 0 #5d574e, inset 0 -2px 0 #0d0c0b, 0 10px 30px rgba(0,0,0,.55);
+    position: relative;
+  }
+  .sw-panel::before, .sw-panel::after {
+    content: ""; position: absolute; width: 7px; height: 7px; border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #9a9285, #3a362f 70%); top: 7px; left: 7px;
+    box-shadow: calc(100% - 0px) 0 0 0 transparent;
+  }
+  .sw-panel::after { left: auto; right: 7px; }
+  .sw-btn {
+    font-family: "Black Ops One", system-ui, sans-serif; letter-spacing: .08em; text-transform: uppercase;
+    background: linear-gradient(180deg, #3a3631 0%, #26231f 100%); color: #eadfc8;
+    border: 2px solid #57503f; border-bottom-width: 5px; border-radius: 4px;
+    transition: transform .08s ease, border-bottom-width .08s ease, background .2s ease, color .2s ease;
+  }
+  .sw-btn:hover { color: #f2c230; border-color: #8a6a1e; }
+  .sw-btn:active { transform: translateY(3px); border-bottom-width: 2px; }
+  .sw-btn-primary { background: linear-gradient(180deg, #f2c230 0%, #c8901a 100%); color: #1b140b; border-color: #7a5410; }
+  .sw-btn-primary:hover { color: #000; background: linear-gradient(180deg, #ffd54a 0%, #d89c1c 100%); }
+  .sw-hazard { background: repeating-linear-gradient(-45deg, #f2c230 0 10px, #1b1712 10px 20px); }
+  .sw-pop { animation: sw-pop .38s cubic-bezier(.2,.8,.3,1.2) both; }
+  .sw-slide { animation: sw-slide .35s ease-out both; }
+  .sw-shake { animation: sw-shake .25s linear; }
+  .sw-pulse { animation: sw-pulse .8s ease-in-out infinite; }
+  .sw-fill { animation: sw-fill .9s linear infinite; }
+}
+/* The key legend is for keyboards: never on the touch layout (unlayered so it beats md:flex). */
+.sw-touch .sw-hud-legend { display: none !important; }
+@keyframes sw-pop { 0% { transform: scale(1.8); opacity: 0; } 45% { transform: scale(.92); opacity: 1; } 70% { transform: scale(1.05); } 100% { transform: scale(1); } }
+@keyframes sw-slide { from { transform: translateY(14px); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes sw-shake { 0%,100% { transform: translate(0,0); } 25% { transform: translate(-3px,1px); } 50% { transform: translate(2px,-2px); } 75% { transform: translate(-1px,2px); } }
+@keyframes sw-pulse { 0%,100% { opacity: 1; } 50% { opacity: .45; } }
+@keyframes sw-fill { from { left: -25%; } to { left: 100%; } }

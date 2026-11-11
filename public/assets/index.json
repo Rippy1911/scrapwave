@@ -1,0 +1,1263 @@
+{
+ "version": "2026-11-10.1",
+ "license": "CC0-1.0 (all files; see CREDITS.md)",
+ "basePath": "/assets/",
+ "conventions": {
+  "paths": "relative to basePath (this file lives at /assets/index.json)",
+  "units": "metres",
+  "up": "+Y",
+  "forward": "+Z for vehicles, ramps and props with a front; NOTE the game vehicle frame is -Z forward, so rotate vehicle GLBs 180 degrees about Y (or negate Z) when attaching",
+  "origin": "bottom centre of the bounding box (y = 0 is the ground contact)",
+  "colorSpace": "color maps are sRGB; normal and orm maps are linear (set texture.colorSpace = THREE.NoColorSpace)",
+  "normalMaps": "OpenGL convention (+Y up / green up), tangent space",
+  "orm": "R = ambient occlusion (aoMap; three r151+ reads uv channel texture.channel, default 0; older three needs a uv2 attribute), G = roughness, B = metalness (glTF metallicRoughness layout: use the same texture for roughnessMap and metalnessMap)",
+  "models": "plain GLB, no Draco, no meshopt, no KTX2; textures embedded JPEG/PNG/WebP (EXT_texture_webp, which GLTFLoader reads by default) at most 1024 px; load with GLTFLoader only"
+ },
+ "hdri": {
+  "file": "hdri/quarry_01_1k.hdr",
+  "preview": "hdri/quarry_01_preview_2k.jpg",
+  "format": "Radiance RGBE, 512x256 equirectangular (RGBELoader / HDRLoader)",
+  "use": "scene.environment via PMREMGenerator for image-based lighting only; keep the Sky addon for the visible sky",
+  "sun": {
+   "elevationDeg": 10.0,
+   "directionThree": [
+    0.7963,
+    0.174,
+    0.5793
+   ],
+   "colorNormalized": [
+    1.0,
+    0.704,
+    0.284
+   ],
+   "note": "unclipped sun (peak ~64k); direction is in three.js equirect space with no environment rotation; align the DirectionalLight with it or rotate the env map (scene.environmentRotation) to match the Sky sun"
+  },
+  "source": "Poly Haven / Quarry 01",
+  "sourceUrl": "https://polyhaven.com/a/quarry_01",
+  "author": "Sergej Majboroda",
+  "license": "CC0"
+ },
+ "textures": {
+  "sand_ripples": {
+   "color": "textures/sand_ripples/color.jpg",
+   "normal": "textures/sand_ripples/normal.jpg",
+   "orm": "textures/sand_ripples/orm.jpg",
+   "repeatMetres": 4.0,
+   "description": "desert sand with wind ripples",
+   "source": "ambientCG",
+   "sourceId": "Ground098",
+   "sourceUrl": "https://ambientcg.com/view?id=Ground098",
+   "author": "Lennart Demes (ambientCG)",
+   "license": "CC0",
+   "bytes": 454721
+  },
+  "cracked_mud": {
+   "color": "textures/cracked_mud/color.jpg",
+   "normal": "textures/cracked_mud/normal.jpg",
+   "orm": "textures/cracked_mud/orm.jpg",
+   "repeatMetres": 1.5,
+   "description": "cracked dry mud, dried lake bed",
+   "source": "Poly Haven",
+   "sourceId": "mud_cracked_dry_03",
+   "sourceUrl": "https://polyhaven.com/a/mud_cracked_dry_03",
+   "author": "Dario Barresi, Dimitrios Savva",
+   "license": "CC0",
+   "bytes": 1043655
+  },
+  "salt_flat": {
+   "color": "textures/salt_flat/color.jpg",
+   "normal": "textures/salt_flat/normal.jpg",
+   "orm": "textures/salt_flat/orm.jpg",
+   "repeatMetres": 4.0,
+   "description": "pale fine-cracked dry ground (salt flat / playa)",
+   "source": "Poly Haven",
+   "sourceId": "dry_ground_01",
+   "sourceUrl": "https://polyhaven.com/a/dry_ground_01",
+   "author": "Rob Tuytel",
+   "license": "CC0",
+   "bytes": 739346
+  },
+  "red_rock": {
+   "color": "textures/red_rock/color.jpg",
+   "normal": "textures/red_rock/normal.jpg",
+   "orm": "textures/red_rock/orm.jpg",
+   "repeatMetres": 3.0,
+   "description": "red-brown layered sandstone cliff (mesas, canyon walls)",
+   "source": "Poly Haven",
+   "sourceId": "cliff_side",
+   "sourceUrl": "https://polyhaven.com/a/cliff_side",
+   "author": "James Ray Cock, Jenelle van Heerden, Dario Barresi",
+   "license": "CC0",
+   "bytes": 705299
+  },
+  "gravel_dirt": {
+   "color": "textures/gravel_dirt/color.jpg",
+   "normal": "textures/gravel_dirt/normal.jpg",
+   "orm": "textures/gravel_dirt/orm.jpg",
+   "repeatMetres": 4.0,
+   "description": "dry dirt with gravel and small stones",
+   "source": "Poly Haven",
+   "sourceId": "dry_ground_rocks",
+   "sourceUrl": "https://polyhaven.com/a/dry_ground_rocks",
+   "author": "Rob Tuytel",
+   "license": "CC0",
+   "bytes": 1119429
+  },
+  "asphalt_damaged": {
+   "color": "textures/asphalt_damaged/color.jpg",
+   "normal": "textures/asphalt_damaged/normal.jpg",
+   "orm": "textures/asphalt_damaged/orm.jpg",
+   "repeatMetres": 3.0,
+   "description": "old cracked asphalt (broken highway)",
+   "source": "ambientCG",
+   "sourceId": "Asphalt026B",
+   "sourceUrl": "https://ambientcg.com/view?id=Asphalt026B",
+   "author": "Lennart Demes (ambientCG)",
+   "license": "CC0",
+   "bytes": 824667
+  },
+  "rusty_metal": {
+   "color": "textures/rusty_metal/color.jpg",
+   "normal": "textures/rusty_metal/normal.jpg",
+   "orm": "textures/rusty_metal/orm.jpg",
+   "repeatMetres": 1.25,
+   "description": "heavily rusted sheet metal",
+   "source": "Poly Haven",
+   "sourceId": "rusty_metal_05",
+   "sourceUrl": "https://polyhaven.com/a/rusty_metal_05",
+   "author": "Amal Kumar",
+   "license": "CC0",
+   "bytes": 454494
+  },
+  "painted_metal_chipped": {
+   "color": "textures/painted_metal_chipped/color.jpg",
+   "normal": "textures/painted_metal_chipped/normal.jpg",
+   "orm": "textures/painted_metal_chipped/orm.jpg",
+   "repeatMetres": 1.5,
+   "description": "white paint chipped to bare metal and rust (tint the colour map)",
+   "source": "ambientCG",
+   "sourceId": "PaintedMetal012",
+   "sourceUrl": "https://ambientcg.com/view?id=PaintedMetal012",
+   "author": "Lennart Demes (ambientCG)",
+   "license": "CC0",
+   "bytes": 614428
+  },
+  "corrugated_rusty": {
+   "color": "textures/corrugated_rusty/color.jpg",
+   "normal": "textures/corrugated_rusty/normal.jpg",
+   "orm": "textures/corrugated_rusty/orm.jpg",
+   "repeatMetres": 2.0,
+   "description": "rusty corrugated iron sheet (ridges run along V)",
+   "source": "Poly Haven",
+   "sourceId": "rusty_corrugated_iron",
+   "sourceUrl": "https://polyhaven.com/a/rusty_corrugated_iron",
+   "author": "Charlotte Baglioni",
+   "license": "CC0",
+   "bytes": 418919
+  },
+  "concrete_cracked": {
+   "color": "textures/concrete_cracked/color.jpg",
+   "normal": "textures/concrete_cracked/normal.jpg",
+   "orm": "textures/concrete_cracked/orm.jpg",
+   "repeatMetres": 2.0,
+   "description": "dirty cracked concrete slab",
+   "source": "Poly Haven",
+   "sourceId": "cracked_concrete",
+   "sourceUrl": "https://polyhaven.com/a/cracked_concrete",
+   "author": "Dimitrios Savva",
+   "license": "CC0",
+   "bytes": 621156
+  },
+  "wood_planks_old": {
+   "color": "textures/wood_planks_old/color.jpg",
+   "normal": "textures/wood_planks_old/normal.jpg",
+   "orm": "textures/wood_planks_old/orm.jpg",
+   "repeatMetres": 2.0,
+   "description": "sun-bleached old wooden planks (boards run along V)",
+   "source": "Poly Haven",
+   "sourceId": "old_planks_02",
+   "sourceUrl": "https://polyhaven.com/a/old_planks_02",
+   "author": "Rob Tuytel",
+   "license": "CC0",
+   "bytes": 502391
+  }
+ },
+ "models": {
+  "car_hatchback_sports": {
+   "file": "models/car_hatchback_sports.glb",
+   "kind": "vehicle",
+   "sizeMetres": [
+    1.82,
+    1.54,
+    3.99
+   ],
+   "triangles": 2088,
+   "wheelNodes": [
+    "wheel-front-right",
+    "wheel-front-left",
+    "wheel-back-right",
+    "wheel-back-left"
+   ],
+   "wheelRadius": 0.42,
+   "wheels": [
+    {
+     "name": "wheel-front-right",
+     "pos": [
+      -0.42,
+      0.42,
+      1.169
+     ]
+    },
+    {
+     "name": "wheel-front-left",
+     "pos": [
+      0.42,
+      0.42,
+      1.169
+     ]
+    },
+    {
+     "name": "wheel-back-right",
+     "pos": [
+      -0.42,
+      0.42,
+      -1.099
+     ]
+    },
+    {
+     "name": "wheel-back-left",
+     "pos": [
+      0.42,
+      0.42,
+      -1.099
+     ]
+    }
+   ],
+   "bodyNodes": [
+    "body"
+   ],
+   "scaleFromSource": 1.4,
+   "textures": [
+    "png:512x512"
+   ],
+   "bytes": 104740,
+   "source": "Kenney Car Kit 3.1 / hatchback-sports.glb",
+   "sourceUrl": "https://kenney.nl/assets/car-kit",
+   "author": "Kenney (kenney.nl)",
+   "license": "CC0"
+  },
+  "car_sedan": {
+   "file": "models/car_sedan.glb",
+   "kind": "vehicle",
+   "sizeMetres": [
+    2.1,
+    1.82,
+    3.57
+   ],
+   "triangles": 2032,
+   "wheelNodes": [
+    "wheel-front-right",
+    "wheel-back-left",
+    "wheel-back-right",
+    "wheel-front-left"
+   ],
+   "wheelRadius": 0.42,
+   "wheels": [
+    {
+     "name": "wheel-front-right",
+     "pos": [
+      -0.42,
+      0.42,
+      0.959
+     ]
+    },
+    {
+     "name": "wheel-back-left",
+     "pos": [
+      0.42,
+      0.42,
+      -0.889
+     ]
+    },
+    {
+     "name": "wheel-back-right",
+     "pos": [
+      -0.42,
+      0.42,
+      -0.889
+     ]
+    },
+    {
+     "name": "wheel-front-left",
+     "pos": [
+      0.42,
+      0.42,
+      0.959
+     ]
+    }
+   ],
+   "bodyNodes": [
+    "body"
+   ],
+   "scaleFromSource": 1.4,
+   "textures": [
+    "png:512x512"
+   ],
+   "bytes": 87588,
+   "source": "Kenney Car Kit 3.1 / sedan.glb",
+   "sourceUrl": "https://kenney.nl/assets/car-kit",
+   "author": "Kenney (kenney.nl)",
+   "license": "CC0"
+  },
+  "car_sports": {
+   "file": "models/car_sports.glb",
+   "kind": "vehicle",
+   "sizeMetres": [
+    1.82,
+    1.54,
+    3.57
+   ],
+   "triangles": 2088,
+   "wheelNodes": [
+    "wheel-back-right",
+    "wheel-back-left",
+    "wheel-front-left",
+    "wheel-front-right"
+   ],
+   "wheelRadius": 0.42,
+   "wheels": [
+    {
+     "name": "wheel-back-right",
+     "pos": [
+      -0.42,
+      0.42,
+      -0.889
+     ]
+    },
+    {
+     "name": "wheel-back-left",
+     "pos": [
+      0.42,
+      0.42,
+      -0.889
+     ]
+    },
+    {
+     "name": "wheel-front-left",
+     "pos": [
+      0.42,
+      0.42,
+      0.959
+     ]
+    },
+    {
+     "name": "wheel-front-right",
+     "pos": [
+      -0.42,
+      0.42,
+      0.959
+     ]
+    }
+   ],
+   "bodyNodes": [
+    "body",
+    "spoiler"
+   ],
+   "scaleFromSource": 1.4,
+   "textures": [
+    "png:512x512"
+   ],
+   "bytes": 91200,
+   "source": "Kenney Car Kit 3.1 / sedan-sports.glb",
+   "sourceUrl": "https://kenney.nl/assets/car-kit",
+   "author": "Kenney (kenney.nl)",
+   "license": "CC0"
+  },
+  "suv": {
+   "file": "models/suv.glb",
+   "kind": "vehicle",
+   "sizeMetres": [
+    2.1,
+    1.82,
+    3.78
+   ],
+   "triangles": 2474,
+   "wheelNodes": [
+    "wheel-back-left",
+    "wheel-back-right",
+    "wheel-front-left",
+    "wheel-front-right"
+   ],
+   "wheelRadius": 0.42,
+   "wheels": [
+    {
+     "name": "wheel-back-left",
+     "pos": [
+      0.42,
+      0.42,
+      -0.784
+     ]
+    },
+    {
+     "name": "wheel-back-right",
+     "pos": [
+      -0.42,
+      0.42,
+      -0.784
+     ]
+    },
+    {
+     "name": "wheel-front-left",
+     "pos": [
+      0.42,
+      0.42,
+      1.064
+     ]
+    },
+    {
+     "name": "wheel-front-right",
+     "pos": [
+      -0.42,
+      0.42,
+      1.064
+     ]
+    }
+   ],
+   "bodyNodes": [
+    "body",
+    "wheel-back"
+   ],
+   "scaleFromSource": 1.4,
+   "textures": [
+    "png:512x512"
+   ],
+   "bytes": 105480,
+   "source": "Kenney Car Kit 3.1 / suv.glb",
+   "sourceUrl": "https://kenney.nl/assets/car-kit",
+   "author": "Kenney (kenney.nl)",
+   "license": "CC0"
+  },
+  "truck_delivery": {
+   "file": "models/truck_delivery.glb",
+   "kind": "vehicle",
+   "sizeMetres": [
+    2.1,
+    2.31,
+    4.55
+   ],
+   "triangles": 2476,
+   "wheelNodes": [
+    "wheel-front-right",
+    "wheel-front-left",
+    "wheel-back-right",
+    "wheel-back-left"
+   ],
+   "wheelRadius": 0.42,
+   "wheels": [
+    {
+     "name": "wheel-front-right",
+     "pos": [
+      -0.42,
+      0.42,
+      1.449
+     ]
+    },
+    {
+     "name": "wheel-front-left",
+     "pos": [
+      0.42,
+      0.42,
+      1.449
+     ]
+    },
+    {
+     "name": "wheel-back-right",
+     "pos": [
+      -0.42,
+      0.42,
+      -0.819
+     ]
+    },
+    {
+     "name": "wheel-back-left",
+     "pos": [
+      0.42,
+      0.42,
+      -0.819
+     ]
+    }
+   ],
+   "bodyNodes": [
+    "door",
+    "body"
+   ],
+   "scaleFromSource": 1.4,
+   "textures": [
+    "png:512x512"
+   ],
+   "bytes": 119756,
+   "source": "Kenney Car Kit 3.1 / delivery.glb",
+   "sourceUrl": "https://kenney.nl/assets/car-kit",
+   "author": "Kenney (kenney.nl)",
+   "license": "CC0"
+  },
+  "truck_garbage": {
+   "file": "models/truck_garbage.glb",
+   "kind": "vehicle",
+   "sizeMetres": [
+    2.24,
+    2.24,
+    4.83
+   ],
+   "triangles": 3124,
+   "wheelNodes": [
+    "wheel-front-left",
+    "wheel-front-right",
+    "wheel-back-right",
+    "wheel-back-left"
+   ],
+   "wheelRadius": 0.42,
+   "wheels": [
+    {
+     "name": "wheel-front-left",
+     "pos": [
+      0.42,
+      0.42,
+      1.519
+     ]
+    },
+    {
+     "name": "wheel-front-right",
+     "pos": [
+      -0.42,
+      0.42,
+      1.519
+     ]
+    },
+    {
+     "name": "wheel-back-right",
+     "pos": [
+      -0.42,
+      0.42,
+      -0.749
+     ]
+    },
+    {
+     "name": "wheel-back-left",
+     "pos": [
+      0.42,
+      0.42,
+      -0.749
+     ]
+    }
+   ],
+   "bodyNodes": [
+    "arm",
+    "body",
+    "trash"
+   ],
+   "scaleFromSource": 1.4,
+   "textures": [
+    "png:512x512"
+   ],
+   "bytes": 139804,
+   "source": "Kenney Car Kit 3.1 / garbage-truck.glb",
+   "sourceUrl": "https://kenney.nl/assets/car-kit",
+   "author": "Kenney (kenney.nl)",
+   "license": "CC0"
+  },
+  "truck_pickup": {
+   "file": "models/truck_pickup.glb",
+   "kind": "vehicle",
+   "sizeMetres": [
+    2.1,
+    1.82,
+    4.13
+   ],
+   "triangles": 2082,
+   "wheelNodes": [
+    "wheel-front-right",
+    "wheel-front-left",
+    "wheel-back-right",
+    "wheel-back-left"
+   ],
+   "wheelRadius": 0.42,
+   "wheels": [
+    {
+     "name": "wheel-front-right",
+     "pos": [
+      -0.42,
+      0.42,
+      1.239
+     ]
+    },
+    {
+     "name": "wheel-front-left",
+     "pos": [
+      0.42,
+      0.42,
+      1.239
+     ]
+    },
+    {
+     "name": "wheel-back-right",
+     "pos": [
+      -0.42,
+      0.42,
+      -1.029
+     ]
+    },
+    {
+     "name": "wheel-back-left",
+     "pos": [
+      0.42,
+      0.42,
+      -1.029
+     ]
+    }
+   ],
+   "bodyNodes": [
+    "body"
+   ],
+   "scaleFromSource": 1.4,
+   "textures": [
+    "png:512x512"
+   ],
+   "bytes": 90432,
+   "source": "Kenney Car Kit 3.1 / truck.glb",
+   "sourceUrl": "https://kenney.nl/assets/car-kit",
+   "author": "Kenney (kenney.nl)",
+   "license": "CC0"
+  },
+  "van": {
+   "file": "models/van.glb",
+   "kind": "vehicle",
+   "sizeMetres": [
+    2.1,
+    1.89,
+    3.85
+   ],
+   "triangles": 2082,
+   "wheelNodes": [
+    "wheel-front-right",
+    "wheel-front-left",
+    "wheel-back-right",
+    "wheel-back-left"
+   ],
+   "wheelRadius": 0.42,
+   "wheels": [
+    {
+     "name": "wheel-front-right",
+     "pos": [
+      -0.42,
+      0.42,
+      1.099
+     ]
+    },
+    {
+     "name": "wheel-front-left",
+     "pos": [
+      0.42,
+      0.42,
+      1.099
+     ]
+    },
+    {
+     "name": "wheel-back-right",
+     "pos": [
+      -0.42,
+      0.42,
+      -1.029
+     ]
+    },
+    {
+     "name": "wheel-back-left",
+     "pos": [
+      0.42,
+      0.42,
+      -1.029
+     ]
+    }
+   ],
+   "bodyNodes": [
+    "body"
+   ],
+   "scaleFromSource": 1.4,
+   "textures": [
+    "png:512x512"
+   ],
+   "bytes": 90028,
+   "source": "Kenney Car Kit 3.1 / van.glb",
+   "sourceUrl": "https://kenney.nl/assets/car-kit",
+   "author": "Kenney (kenney.nl)",
+   "license": "CC0"
+  },
+  "barrier_block_red": {
+   "file": "models/barrier_block_red.glb",
+   "kind": "barrier",
+   "sizeMetres": [
+    2,
+    1.05,
+    0.984
+   ],
+   "triangles": 28,
+   "orientation": "long axis X",
+   "scaleFromSource": 8,
+   "textures": [],
+   "bytes": 2408,
+   "source": "Kenney Racing Kit 2.0 / barrierRed.glb",
+   "sourceUrl": "https://kenney.nl/assets/racing-kit",
+   "author": "Kenney (kenney.nl)",
+   "license": "CC0"
+  },
+  "barrier_block_white": {
+   "file": "models/barrier_block_white.glb",
+   "kind": "barrier",
+   "sizeMetres": [
+    2,
+    1.05,
+    0.984
+   ],
+   "triangles": 28,
+   "orientation": "long axis X",
+   "scaleFromSource": 8,
+   "textures": [],
+   "bytes": 2416,
+   "source": "Kenney Racing Kit 2.0 / barrierWhite.glb",
+   "sourceUrl": "https://kenney.nl/assets/racing-kit",
+   "author": "Kenney (kenney.nl)",
+   "license": "CC0"
+  },
+  "barrier_wall": {
+   "file": "models/barrier_wall.glb",
+   "kind": "barrier",
+   "sizeMetres": [
+    8,
+    1.05,
+    0.984
+   ],
+   "triangles": 76,
+   "orientation": "long axis X (one 8 m segment)",
+   "scaleFromSource": 8,
+   "textures": [],
+   "bytes": 5640,
+   "source": "Kenney Racing Kit 2.0 / barrierWall.glb",
+   "sourceUrl": "https://kenney.nl/assets/racing-kit",
+   "author": "Kenney (kenney.nl)",
+   "license": "CC0"
+  },
+  "cone": {
+   "file": "models/cone.glb",
+   "kind": "barrier",
+   "sizeMetres": [
+    0.571,
+    0.714,
+    0.571
+   ],
+   "triangles": 172,
+   "scaleFromSource": 1.2,
+   "textures": [
+    "png:512x512"
+   ],
+   "bytes": 24032,
+   "source": "Kenney Car Kit 3.1 / cone.glb",
+   "sourceUrl": "https://kenney.nl/assets/car-kit",
+   "author": "Kenney (kenney.nl)",
+   "license": "CC0"
+  },
+  "guard_rail": {
+   "file": "models/guard_rail.glb",
+   "kind": "barrier",
+   "sizeMetres": [
+    5,
+    0.8,
+    0.25
+   ],
+   "triangles": 68,
+   "orientation": "long axis X (one 5 m segment)",
+   "scaleFromSource": 5,
+   "textures": [],
+   "bytes": 4244,
+   "source": "Kenney Racing Kit 2.0 / rail.glb",
+   "sourceUrl": "https://kenney.nl/assets/racing-kit",
+   "author": "Kenney (kenney.nl)",
+   "license": "CC0"
+  },
+  "guard_rail_double": {
+   "file": "models/guard_rail_double.glb",
+   "kind": "barrier",
+   "sizeMetres": [
+    5,
+    1.4,
+    0.25
+   ],
+   "triangles": 112,
+   "orientation": "long axis X (one 5 m segment)",
+   "scaleFromSource": 5,
+   "textures": [],
+   "bytes": 6152,
+   "source": "Kenney Racing Kit 2.0 / railDouble.glb",
+   "sourceUrl": "https://kenney.nl/assets/racing-kit",
+   "author": "Kenney (kenney.nl)",
+   "license": "CC0"
+  },
+  "tyre_stack": {
+   "file": "models/tyre_stack.glb",
+   "kind": "barrier",
+   "sizeMetres": [
+    0.655,
+    0.645,
+    0.65
+   ],
+   "triangles": 11520,
+   "note": "4 x tyre_old lying flat (one shared mesh)",
+   "textures": [
+    "jpeg:512x512",
+    "jpeg:512x512",
+    "jpeg:512x512"
+   ],
+   "bytes": 336868,
+   "source": "Poly Haven / Old Tyre",
+   "sourceUrl": "https://polyhaven.com/a/old_tyre",
+   "author": "MP",
+   "license": "CC0"
+  },
+  "ramp": {
+   "file": "models/ramp.glb",
+   "kind": "ramp",
+   "sizeMetres": [
+    3.3,
+    1.98,
+    4.38
+   ],
+   "triangles": 94,
+   "orientation": "drive towards +Z to go up",
+   "scaleFromSource": 6,
+   "textures": [],
+   "bytes": 5412,
+   "source": "Kenney Racing Kit 2.0 / ramp.glb",
+   "sourceUrl": "https://kenney.nl/assets/racing-kit",
+   "author": "Kenney (kenney.nl)",
+   "license": "CC0"
+  },
+  "ramp_road": {
+   "file": "models/ramp_road.glb",
+   "kind": "ramp",
+   "sizeMetres": [
+    6,
+    1.62,
+    6
+   ],
+   "triangles": 18,
+   "orientation": "drive towards +Z to go up; 6 m road ramp tile",
+   "scaleFromSource": 6,
+   "textures": [],
+   "bytes": 3332,
+   "source": "Kenney Racing Kit 2.0 / roadRamp.glb",
+   "sourceUrl": "https://kenney.nl/assets/racing-kit",
+   "author": "Kenney (kenney.nl)",
+   "license": "CC0"
+  },
+  "barrel_fuel": {
+   "file": "models/barrel_fuel.glb",
+   "kind": "prop",
+   "sizeMetres": [
+    0.634,
+    0.93,
+    0.639
+   ],
+   "triangles": 1473,
+   "textures": [
+    "jpeg:512x512",
+    "jpeg:512x512",
+    "jpeg:512x512"
+   ],
+   "bytes": 272176,
+   "source": "Poly Haven / Barrel 03",
+   "sourceUrl": "https://polyhaven.com/a/barrel_03",
+   "author": "Serhii Khromov",
+   "license": "CC0"
+  },
+  "barrel_oil_red": {
+   "file": "models/barrel_oil_red.glb",
+   "kind": "prop",
+   "sizeMetres": [
+    0.563,
+    0.88,
+    0.563
+   ],
+   "triangles": 2682,
+   "textures": [
+    "jpeg:512x512",
+    "jpeg:512x512",
+    "jpeg:512x512"
+   ],
+   "bytes": 348020,
+   "source": "Poly Haven / Barrel_01",
+   "sourceUrl": "https://polyhaven.com/a/Barrel_01",
+   "author": "Jorge Camacho",
+   "license": "CC0"
+  },
+  "barrel_stove": {
+   "file": "models/barrel_stove.glb",
+   "kind": "prop",
+   "sizeMetres": [
+    0.593,
+    0.856,
+    0.593
+   ],
+   "triangles": 8730,
+   "textures": [
+    "jpeg:512x512",
+    "jpeg:512x512",
+    "jpeg:512x512"
+   ],
+   "bytes": 452564,
+   "source": "Poly Haven / Barrel Stove",
+   "sourceUrl": "https://polyhaven.com/a/barrel_stove",
+   "author": "MP",
+   "license": "CC0"
+  },
+  "car_covered_wreck": {
+   "file": "models/car_covered_wreck.glb",
+   "kind": "prop",
+   "sizeMetres": [
+    1.789,
+    1.411,
+    4.38
+   ],
+   "triangles": 12592,
+   "textures": [
+    "jpeg:1024x1024",
+    "jpeg:1024x1024",
+    "jpeg:1024x1024"
+   ],
+   "bytes": 1101476,
+   "source": "Poly Haven / Covered Car",
+   "sourceUrl": "https://polyhaven.com/a/covered_car",
+   "author": "MP",
+   "license": "CC0"
+  },
+  "crate_kenney": {
+   "file": "models/crate_kenney.glb",
+   "kind": "prop",
+   "sizeMetres": [
+    1.001,
+    1.001,
+    1.001
+   ],
+   "triangles": 124,
+   "scaleFromSource": 1.4,
+   "textures": [
+    "png:512x512"
+   ],
+   "bytes": 22076,
+   "source": "Kenney Car Kit 3.1 / box.glb",
+   "sourceUrl": "https://kenney.nl/assets/car-kit",
+   "author": "Kenney (kenney.nl)",
+   "license": "CC0"
+  },
+  "crate_wood": {
+   "file": "models/crate_wood.glb",
+   "kind": "prop",
+   "sizeMetres": [
+    0.529,
+    0.464,
+    1.166
+   ],
+   "triangles": 5176,
+   "textures": [
+    "jpeg:512x512",
+    "jpeg:512x512",
+    "jpeg:512x512"
+   ],
+   "bytes": 399024,
+   "source": "Poly Haven / Wooden Crate 02",
+   "sourceUrl": "https://polyhaven.com/a/wooden_crate_02",
+   "author": "James Ray Cock, Jurita Burger",
+   "license": "CC0"
+  },
+  "debris_bumper": {
+   "file": "models/debris_bumper.glb",
+   "kind": "prop",
+   "sizeMetres": [
+    1.82,
+    0.56,
+    0.63
+   ],
+   "triangles": 116,
+   "scaleFromSource": 1.4,
+   "textures": [
+    "png:512x512"
+   ],
+   "bytes": 20296,
+   "source": "Kenney Car Kit 3.1 / debris-bumper.glb",
+   "sourceUrl": "https://kenney.nl/assets/car-kit",
+   "author": "Kenney (kenney.nl)",
+   "license": "CC0"
+  },
+  "debris_door": {
+   "file": "models/debris_door.glb",
+   "kind": "prop",
+   "sizeMetres": [
+    0.263,
+    1.26,
+    1.12
+   ],
+   "triangles": 68,
+   "scaleFromSource": 1.4,
+   "textures": [
+    "png:512x512"
+   ],
+   "bytes": 17416,
+   "source": "Kenney Car Kit 3.1 / debris-door.glb",
+   "sourceUrl": "https://kenney.nl/assets/car-kit",
+   "author": "Kenney (kenney.nl)",
+   "license": "CC0"
+  },
+  "debris_drivetrain": {
+   "file": "models/debris_drivetrain.glb",
+   "kind": "prop",
+   "sizeMetres": [
+    1.686,
+    0.414,
+    2.688
+   ],
+   "triangles": 412,
+   "scaleFromSource": 1.4,
+   "textures": [
+    "png:512x512"
+   ],
+   "bytes": 38056,
+   "source": "Kenney Car Kit 3.1 / debris-drivetrain.glb",
+   "sourceUrl": "https://kenney.nl/assets/car-kit",
+   "author": "Kenney (kenney.nl)",
+   "license": "CC0"
+  },
+  "jerrycan": {
+   "file": "models/jerrycan.glb",
+   "kind": "prop",
+   "sizeMetres": [
+    0.35,
+    0.455,
+    0.172
+   ],
+   "triangles": 5819,
+   "textures": [
+    "jpeg:512x512",
+    "jpeg:512x512",
+    "jpeg:512x512"
+   ],
+   "bytes": 449776,
+   "source": "Poly Haven / Metal Jerrycan",
+   "sourceUrl": "https://polyhaven.com/a/metal_jerrycan",
+   "author": "Sean Buckley",
+   "license": "CC0"
+  },
+  "propane_tank": {
+   "file": "models/propane_tank.glb",
+   "kind": "prop",
+   "sizeMetres": [
+    0.337,
+    0.554,
+    0.337
+   ],
+   "triangles": 5238,
+   "textures": [
+    "jpeg:512x512",
+    "jpeg:512x512",
+    "jpeg:512x512"
+   ],
+   "bytes": 391720,
+   "source": "Poly Haven / Propane Tank",
+   "sourceUrl": "https://polyhaven.com/a/propane_tank",
+   "author": "Slinc",
+   "license": "CC0"
+  },
+  "tyre_old": {
+   "file": "models/tyre_old.glb",
+   "kind": "prop",
+   "sizeMetres": [
+    0.6,
+    0.6,
+    0.165
+   ],
+   "triangles": 2880,
+   "textures": [
+    "jpeg:512x512",
+    "jpeg:512x512",
+    "jpeg:512x512"
+   ],
+   "bytes": 336360,
+   "source": "Poly Haven / Old Tyre",
+   "sourceUrl": "https://polyhaven.com/a/old_tyre",
+   "author": "MP",
+   "license": "CC0"
+  },
+  "wheel_rim_rusted": {
+   "file": "models/wheel_rim_rusted.glb",
+   "kind": "prop",
+   "sizeMetres": [
+    0.405,
+    0.405,
+    0.15
+   ],
+   "triangles": 5820,
+   "textures": [
+    "jpeg:512x512",
+    "jpeg:512x512",
+    "jpeg:512x512"
+   ],
+   "bytes": 523064,
+   "source": "Poly Haven / Rusted Wheel Rim 01",
+   "sourceUrl": "https://polyhaven.com/a/rusted_wheel_rim_01",
+   "author": "John Hutcheson",
+   "license": "CC0"
+  },
+  "rock_boulder_flat": {
+   "file": "models/rock_boulder_flat.glb",
+   "kind": "rock",
+   "sizeMetres": [
+    2.532,
+    0.883,
+    1.234
+   ],
+   "triangles": 11639,
+   "textures": [
+    "jpeg:1024x1024",
+    "jpeg:1024x1024",
+    "jpeg:1024x1024"
+   ],
+   "bytes": 1490456,
+   "source": "Poly Haven / Namaqualand Boulder 02",
+   "sourceUrl": "https://polyhaven.com/a/namaqualand_boulder_02",
+   "author": "Greg Zaal, Rico Cilliers",
+   "license": "CC0"
+  },
+  "rock_boulder_large": {
+   "file": "models/rock_boulder_large.glb",
+   "kind": "rock",
+   "sizeMetres": [
+    2.518,
+    1.896,
+    2.496
+   ],
+   "triangles": 13580,
+   "textures": [
+    "jpeg:1024x1024",
+    "jpeg:1024x1024",
+    "jpeg:1024x1024"
+   ],
+   "bytes": 1282344,
+   "source": "Poly Haven / Namaqualand Boulder 04",
+   "sourceUrl": "https://polyhaven.com/a/namaqualand_boulder_04",
+   "author": "Jenelle van Heerden",
+   "license": "CC0"
+  },
+  "rock_outcrop": {
+   "file": "models/rock_outcrop.glb",
+   "kind": "rock",
+   "sizeMetres": [
+    8.279,
+    4.961,
+    4.387
+   ],
+   "triangles": 14550,
+   "textures": [
+    "jpeg:1024x1024",
+    "jpeg:1024x1024",
+    "jpeg:1024x1024"
+   ],
+   "bytes": 1307156,
+   "source": "Poly Haven / Namaqualand Cliff 01",
+   "sourceUrl": "https://polyhaven.com/a/namaqualand_cliff_01",
+   "author": "Jenelle van Heerden, Rico Cilliers",
+   "license": "CC0"
+  },
+  "rock_small": {
+   "file": "models/rock_small.glb",
+   "kind": "rock",
+   "sizeMetres": [
+    1.364,
+    0.538,
+    0.748
+   ],
+   "triangles": 7760,
+   "textures": [
+    "jpeg:1024x1024",
+    "jpeg:1024x1024",
+    "jpeg:1024x1024"
+   ],
+   "bytes": 1337804,
+   "source": "Poly Haven / Namaqualand Boulder 05",
+   "sourceUrl": "https://polyhaven.com/a/namaqualand_boulder_05",
+   "author": "Jenelle van Heerden, Dario Barresi",
+   "license": "CC0"
+  },
+  "log_dead_fallen": {
+   "file": "models/log_dead_fallen.glb",
+   "kind": "plant",
+   "sizeMetres": [
+    4.051,
+    1.054,
+    1.053
+   ],
+   "triangles": 13572,
+   "textures": [
+    "jpeg:768x768",
+    "jpeg:768x768",
+    "jpeg:768x768"
+   ],
+   "bytes": 1101508,
+   "source": "Poly Haven / Dead Tree Trunk 02",
+   "sourceUrl": "https://polyhaven.com/a/dead_tree_trunk_02",
+   "author": "Jenelle van Heerden, Rico Cilliers",
+   "license": "CC0"
+  },
+  "shrub_dry": {
+   "file": "models/shrub_dry.glb",
+   "kind": "plant",
+   "sizeMetres": [
+    0.697,
+    0.539,
+    0.843
+   ],
+   "triangles": 14344,
+   "variants": [
+    "variant_a",
+    "variant_e"
+   ],
+   "note": "two variants overlap at the origin; show one child by name",
+   "textures": [
+    "jpeg:512x512",
+    "jpeg:512x512",
+    "png:512x512"
+   ],
+   "bytes": 1013088,
+   "source": "Poly Haven / Wild Rooibos Bush",
+   "sourceUrl": "https://polyhaven.com/a/wild_rooibos_bush",
+   "author": "James Ray Cock, Jenelle van Heerden",
+   "license": "CC0"
+  },
+  "tree_dead_quiver": {
+   "file": "models/tree_dead_quiver.glb",
+   "kind": "plant",
+   "sizeMetres": [
+    0.306,
+    1.994,
+    0.268
+   ],
+   "triangles": 11640,
+   "textures": [
+    "jpeg:1024x1024",
+    "jpeg:1024x1024",
+    "jpeg:1024x1024"
+   ],
+   "bytes": 965956,
+   "source": "Poly Haven / Dead Quiver Trunk",
+   "sourceUrl": "https://polyhaven.com/a/dead_quiver_trunk",
+   "author": "James Ray Cock, Dario Barresi, Rico Cilliers",
+   "license": "CC0"
+  }
+ }
+}

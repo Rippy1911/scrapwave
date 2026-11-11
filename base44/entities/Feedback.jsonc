@@ -1,0 +1,108 @@
+{
+  "name": "Feedback",
+  "type": "object",
+  "properties": {
+    "rating": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 5,
+      "description": "1 (rough) to 5 (loved it)"
+    },
+    "liked": {
+      "type": "string",
+      "enum": [
+        "driving",
+        "combat",
+        "building",
+        "flying",
+        "mechs",
+        "racing",
+        "other"
+      ],
+      "enumColors": [
+        "blue",
+        "red",
+        "yellow",
+        "purple",
+        "pink",
+        "green",
+        "gray"
+      ],
+      "description": "The part of the game the player liked most"
+    },
+    "comment": {
+      "type": "string",
+      "maxLength": 600,
+      "description": "Free text from the player"
+    },
+    "context": {
+      "type": "string",
+      "enum": [
+        "arena",
+        "cycle",
+        "safe_zone"
+      ],
+      "enumColors": [
+        "blue",
+        "purple",
+        "green"
+      ],
+      "description": "Where the card was shown: after an arena match, after a cycle, or resting in a safe zone"
+    },
+    "mode": {
+      "type": "string",
+      "maxLength": 40,
+      "description": "Name of the rules being played"
+    },
+    "version": {
+      "type": "string",
+      "maxLength": 16,
+      "description": "Game version"
+    },
+    "device": {
+      "type": "string",
+      "enum": [
+        "desktop",
+        "touch"
+      ],
+      "enumColors": [
+        "blue",
+        "purple"
+      ]
+    },
+    "play_minutes": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Minutes since the game was opened"
+    }
+  },
+  "required": [
+    "rating",
+    "context"
+  ],
+  "rls": {
+    "create": {},
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}
